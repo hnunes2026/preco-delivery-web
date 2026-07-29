@@ -392,6 +392,104 @@ input.input-error { border-color: var(--md-error); }
 
 .result-card:hover { box-shadow: 0 4px 20px rgba(40, 10, 5, 0.1); }
 
+/* ---------- Card promocional (final da tela principal) ---------- */
+.promo-card {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  margin-top: 24px;
+  padding: 30px 22px 26px;
+  border-radius: var(--md-radius);
+  background: var(--md-gradient);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--md-primary) 35%, transparent);
+}
+
+.promo-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 18% -10%, rgba(255, 255, 255, 0.28), transparent 55%);
+  pointer-events: none;
+}
+
+.promo-icon {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  animation: sparkle-twinkle 3.2s ease-in-out infinite;
+}
+
+.promo-icon svg { width: 26px; height: 26px; }
+
+@keyframes sparkle-twinkle {
+  0%, 100% { transform: rotate(0deg) scale(1); opacity: 1; }
+  50% { transform: rotate(14deg) scale(1.12); opacity: 0.85; }
+}
+
+.promo-card h2 {
+  position: relative;
+  margin: 0 0 8px;
+  font-size: 1.22rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.promo-card p {
+  position: relative;
+  margin: 0 0 20px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.94rem;
+  line-height: 1.55;
+  max-width: 36ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.promo-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #17110f;
+  font-weight: 800;
+  font-size: 0.98rem;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  animation: promo-pulse 2.3s ease-in-out infinite;
+}
+
+.promo-cta:hover { transform: translateY(-1px) scale(1.03); }
+.promo-cta:active { transform: translateY(0) scale(0.99); }
+.promo-cta svg { width: 18px; height: 18px; transition: transform 0.15s ease; }
+.promo-cta:hover svg { transform: translateX(3px); }
+
+@keyframes promo-pulse {
+  0%, 100% { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18); }
+  50% { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28), 0 0 0 5px rgba(255, 255, 255, 0.16); }
+}
+
+.promo-signature {
+  position: relative;
+  margin: 18px 0 0 !important;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.88);
+  letter-spacing: 0.02em;
+}
+
+.promo-signature a { color: #fff; text-decoration: underline; }
+
 .result-card[data-platform="IFOOD"] { --accent: var(--md-ifood-accent); border-top-color: var(--md-ifood-accent); }
 .result-card[data-platform="NINETY_NINE_FOOD"] { --accent: var(--md-99food-accent); border-top-color: var(--md-99food-accent); }
 
@@ -639,6 +737,10 @@ input.input-error { border-color: var(--md-error); }
     <symbol id="icon-arrow-right" viewBox="0 0 24 24">
       <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0-5.5-5.5M19 12l-5.5 5.5"/>
     </symbol>
+    <symbol id="icon-sparkle" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2.5c.5 3.4 1.3 5.6 2.4 6.7 1.1 1.1 3.3 1.9 6.6 2.4-3.3.5-5.5 1.3-6.6 2.4-1.1 1.1-1.9 3.3-2.4 6.6-.5-3.3-1.3-5.5-2.4-6.6-1.1-1.1-3.3-1.9-6.6-2.4 3.3-.5 5.5-1.3 6.6-2.4C10.7 8.1 11.5 5.9 12 2.5z"/>
+      <path fill="currentColor" opacity="0.75" d="M19 15.2c.25 1.5.63 2.5 1.13 3 .5.5 1.5.88 3 1.13-1.5.25-2.5.63-3 1.13-.5.5-.88 1.5-1.13 3-.25-1.5-.63-2.5-1.13-3-.5-.5-1.5-.88-3-1.13 1.5-.25 2.5-.63 3-1.13.5-.5.88-1.5 1.13-3z"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -698,6 +800,17 @@ input.input-error { border-color: var(--md-error); }
         <span>Trocar Plataforma Principal</span>
       </button>
       <div id="resultCards"></div>
+    </div>
+
+    <div class="promo-card">
+      <div class="promo-icon"><svg><use href="#icon-sparkle"/></svg></div>
+      <h2>Quer ir muito além do preço ideal?</h2>
+      <p>Conheça a Manus, a IA que ajuda donos de restaurante a criar projetos, automatizar tarefas e tomar decisões mais inteligentes pro seu delivery.</p>
+      <a class="promo-cta" href="https://manus.im/invitation/QZATUBGZKV5DOC?utm_source=invitation&amp;utm_medium=social&amp;utm_campaign=copy_link" target="_blank" rel="noopener noreferrer">
+        <span>Quero conhecer essa IA</span>
+        <svg><use href="#icon-arrow-right"/></svg>
+      </a>
+      <p class="promo-signature">HNUNES DELIVERY_CONSULT · <a href="tel:+5521970376887">(21) 97037-6887</a></p>
     </div>
   </section>
 
