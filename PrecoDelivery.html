@@ -130,6 +130,7 @@ svg { width: 22px; height: 22px; }
 .topbar-actions { display: flex; gap: 4px; }
 
 .icon-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -144,6 +145,122 @@ svg { width: 22px; height: 22px; }
 }
 
 .icon-btn:hover { background: var(--md-surface-variant); color: var(--md-primary); }
+
+.notif-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--md-gradient);
+  box-shadow: 0 0 0 2px var(--md-surface);
+  animation: dot-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.65; }
+}
+
+/* ---------- Onboarding: leva o usuário a configurar as taxas antes de calcular ---------- */
+.onboarding-banner {
+  position: relative;
+  text-align: center;
+  padding: 24px 22px 22px;
+  margin-bottom: 20px;
+  border-radius: var(--md-radius);
+  background:
+    linear-gradient(var(--md-surface), var(--md-surface)) padding-box,
+    var(--md-gradient) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: var(--md-shadow);
+  animation: banner-in 0.3s ease-out;
+}
+
+.onboarding-banner.hidden { display: none; }
+
+@keyframes banner-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.onboarding-dismiss {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--md-on-surface-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.onboarding-dismiss svg { width: 15px; height: 15px; }
+.onboarding-dismiss:hover { background: var(--md-surface-variant); color: var(--md-on-surface); }
+
+.onboarding-badge {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: var(--md-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--md-on-primary);
+  animation: badge-pulse 2.4s ease-in-out infinite;
+}
+
+.onboarding-badge svg { width: 26px; height: 26px; }
+
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--md-primary) 35%, transparent); }
+  70% { box-shadow: 0 0 0 12px color-mix(in srgb, var(--md-primary) 0%, transparent); }
+}
+
+.onboarding-copy h2 { margin: 0 0 8px; font-size: 1.15rem; font-weight: 800; }
+.onboarding-copy p {
+  margin: 0 0 18px;
+  color: var(--md-on-surface-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  max-width: 38ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.onboarding-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border: none;
+  border-radius: 999px;
+  background: var(--md-gradient);
+  color: var(--md-on-primary);
+  font-weight: 800;
+  font-size: 0.98rem;
+  cursor: pointer;
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--md-primary) 32%, transparent);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  animation: cta-pulse 2.4s ease-in-out infinite;
+}
+
+.onboarding-cta:hover { transform: translateY(-1px) scale(1.02); }
+.onboarding-cta:active { transform: translateY(0) scale(0.99); }
+.onboarding-cta svg { width: 18px; height: 18px; transition: transform 0.15s ease; }
+.onboarding-cta:hover svg { transform: translateX(3px); }
+
+@keyframes cta-pulse {
+  0%, 100% { box-shadow: 0 6px 18px color-mix(in srgb, var(--md-primary) 32%, transparent); }
+  50% { box-shadow: 0 6px 26px color-mix(in srgb, var(--md-primary) 52%, transparent); }
+}
 
 main {
   max-width: 560px;
@@ -511,6 +628,17 @@ input.input-error { border-color: var(--md-error); }
     <symbol id="icon-close" viewBox="0 0 24 24">
       <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/>
     </symbol>
+    <symbol id="icon-tune" viewBox="0 0 24 24">
+      <line x1="4" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="9" cy="6" r="2.3" fill="currentColor"/>
+      <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="16" cy="12" r="2.3" fill="currentColor"/>
+      <line x1="4" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="11" cy="18" r="2.3" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0-5.5-5.5M19 12l-5.5 5.5"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -519,7 +647,10 @@ input.input-error { border-color: var(--md-error); }
   <h1 id="topbarTitle">Preço Delivery-HNM</h1>
   <div class="topbar-actions" id="calculatorActions">
     <button class="icon-btn" id="btnAbout" aria-label="Sobre" type="button"><svg><use href="#icon-info"/></svg></button>
-    <button class="icon-btn" id="btnSettings" aria-label="Configurações" type="button"><svg><use href="#icon-settings"/></svg></button>
+    <button class="icon-btn" id="btnSettings" aria-label="Configurações" type="button">
+      <svg><use href="#icon-settings"/></svg>
+      <span class="notif-dot hidden" id="settingsNotifDot"></span>
+    </button>
   </div>
 </header>
 
@@ -527,6 +658,21 @@ input.input-error { border-color: var(--md-error); }
 
   <!-- TELA 1: CALCULADORA -->
   <section id="view-calculator" class="view">
+    <div class="onboarding-banner hidden" id="onboardingBanner">
+      <button class="onboarding-dismiss" id="btnDismissOnboarding" aria-label="Agora não" type="button">
+        <svg><use href="#icon-close"/></svg>
+      </button>
+      <div class="onboarding-badge"><svg><use href="#icon-tune"/></svg></div>
+      <div class="onboarding-copy">
+        <h2>Configure suas taxas primeiro</h2>
+        <p>Sem isso, o preço sugerido sai igual ao de balcão — sem considerar comissão, taxas e campanhas. Leva menos de 1 minuto e você faz só uma vez.</p>
+      </div>
+      <button class="onboarding-cta" id="btnOnboardingSettings" type="button">
+        <span>Configurar agora</span>
+        <svg><use href="#icon-arrow-right"/></svg>
+      </button>
+    </div>
+
     <div class="field">
       <label for="counterPriceInput">Preço vendido na loja</label>
       <input id="counterPriceInput" type="text" inputmode="decimal" placeholder="R$ 29,90" autocomplete="off" />
@@ -1112,6 +1258,45 @@ function updateConfig(platform, transform) {
   const key = platform === Platform.IFOOD ? 'ifood' : 'ninetyNineFood';
   appSettings[key] = transform(Object.assign({}, appSettings[key]));
   saveSettings(appSettings);
+  updateOnboardingUI();
+}
+
+/* ---------- Onboarding: guia o usuário a configurar as taxas antes de calcular ---------- */
+
+const ONBOARDING_DISMISSED_KEY = 'precoDeliveryOnboardingDismissed.v1';
+
+/** true assim que pelo menos um campo de taxa (de qualquer plataforma) sai do zero. */
+function isPlatformConfigured(config) {
+  return [
+    config.commissionPercent,
+    config.paymentFeePercent,
+    config.fixedFee,
+    config.campaignAmount,
+    config.adsValue,
+    config.otherFeesValue,
+  ].some((value) => value !== 0);
+}
+
+function isAnyPlatformConfigured() {
+  return isPlatformConfigured(appSettings.ifood) || isPlatformConfigured(appSettings.ninetyNineFood);
+}
+
+function isOnboardingDismissed() {
+  return localStorage.getItem(ONBOARDING_DISMISSED_KEY) === 'true';
+}
+
+function dismissOnboarding() {
+  localStorage.setItem(ONBOARDING_DISMISSED_KEY, 'true');
+  updateOnboardingUI();
+}
+
+/** O banner (dispensável) some assim que houver 1+ taxa configurada OU o usuário dispensar.
+ * O badge no ícone de Configurações é mais discreto e insiste até haver taxa configurada,
+ * mesmo que o banner já tenha sido dispensado. */
+function updateOnboardingUI() {
+  const configured = isAnyPlatformConfigured();
+  document.getElementById('onboardingBanner').classList.toggle('hidden', configured || isOnboardingDismissed());
+  document.getElementById('settingsNotifDot').classList.toggle('hidden', configured);
 }
 
 /* ---------- Navegação entre as 3 telas ---------- */
@@ -1148,6 +1333,9 @@ function init() {
   document.getElementById('goalPercentInput').addEventListener('input', recalculateIfPossible);
   document.getElementById('btnSwapPlatform').addEventListener('click', togglePrimaryPlatform);
 
+  document.getElementById('btnOnboardingSettings').addEventListener('click', () => showView('settings'));
+  document.getElementById('btnDismissOnboarding').addEventListener('click', dismissOnboarding);
+
   document.querySelectorAll('#goalTypeChips .chip').forEach((chip) => {
     chip.addEventListener('click', () => setGoalType(chip.dataset.goal));
   });
@@ -1160,6 +1348,7 @@ function init() {
     if (event.key === 'Escape') closeDetailModal();
   });
 
+  updateOnboardingUI();
   showView('calculator');
 }
 

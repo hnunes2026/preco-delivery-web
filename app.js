@@ -519,6 +519,45 @@ function updateConfig(platform, transform) {
   const key = platform === Platform.IFOOD ? 'ifood' : 'ninetyNineFood';
   appSettings[key] = transform(Object.assign({}, appSettings[key]));
   saveSettings(appSettings);
+  updateOnboardingUI();
+}
+
+/* ---------- Onboarding: guia o usuário a configurar as taxas antes de calcular ---------- */
+
+const ONBOARDING_DISMISSED_KEY = 'precoDeliveryOnboardingDismissed.v1';
+
+/** true assim que pelo menos um campo de taxa (de qualquer plataforma) sai do zero. */
+function isPlatformConfigured(config) {
+  return [
+    config.commissionPercent,
+    config.paymentFeePercent,
+    config.fixedFee,
+    config.campaignAmount,
+    config.adsValue,
+    config.otherFeesValue,
+  ].some((value) => value !== 0);
+}
+
+function isAnyPlatformConfigured() {
+  return isPlatformConfigured(appSettings.ifood) || isPlatformConfigured(appSettings.ninetyNineFood);
+}
+
+function isOnboardingDismissed() {
+  return localStorage.getItem(ONBOARDING_DISMISSED_KEY) === 'true';
+}
+
+function dismissOnboarding() {
+  localStorage.setItem(ONBOARDING_DISMISSED_KEY, 'true');
+  updateOnboardingUI();
+}
+
+/** O banner (dispensável) some assim que houver 1+ taxa configurada OU o usuário dispensar.
+ * O badge no ícone de Configurações é mais discreto e insiste até haver taxa configurada,
+ * mesmo que o banner já tenha sido dispensado. */
+function updateOnboardingUI() {
+  const configured = isAnyPlatformConfigured();
+  document.getElementById('onboardingBanner').classList.toggle('hidden', configured || isOnboardingDismissed());
+  document.getElementById('settingsNotifDot').classList.toggle('hidden', configured);
 }
 
 /* ---------- Navegação entre as 3 telas ---------- */
@@ -555,6 +594,9 @@ function init() {
   document.getElementById('goalPercentInput').addEventListener('input', recalculateIfPossible);
   document.getElementById('btnSwapPlatform').addEventListener('click', togglePrimaryPlatform);
 
+  document.getElementById('btnOnboardingSettings').addEventListener('click', () => showView('settings'));
+  document.getElementById('btnDismissOnboarding').addEventListener('click', dismissOnboarding);
+
   document.querySelectorAll('#goalTypeChips .chip').forEach((chip) => {
     chip.addEventListener('click', () => setGoalType(chip.dataset.goal));
   });
@@ -567,6 +609,7 @@ function init() {
     if (event.key === 'Escape') closeDetailModal();
   });
 
+  updateOnboardingUI();
   showView('calculator');
 }
 

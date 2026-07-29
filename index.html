@@ -33,6 +33,17 @@
     <symbol id="icon-close" viewBox="0 0 24 24">
       <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/>
     </symbol>
+    <symbol id="icon-tune" viewBox="0 0 24 24">
+      <line x1="4" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="9" cy="6" r="2.3" fill="currentColor"/>
+      <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="16" cy="12" r="2.3" fill="currentColor"/>
+      <line x1="4" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="11" cy="18" r="2.3" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m0 0-5.5-5.5M19 12l-5.5 5.5"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -41,7 +52,10 @@
   <h1 id="topbarTitle">Preço Delivery-HNM</h1>
   <div class="topbar-actions" id="calculatorActions">
     <button class="icon-btn" id="btnAbout" aria-label="Sobre" type="button"><svg><use href="#icon-info"/></svg></button>
-    <button class="icon-btn" id="btnSettings" aria-label="Configurações" type="button"><svg><use href="#icon-settings"/></svg></button>
+    <button class="icon-btn" id="btnSettings" aria-label="Configurações" type="button">
+      <svg><use href="#icon-settings"/></svg>
+      <span class="notif-dot hidden" id="settingsNotifDot"></span>
+    </button>
   </div>
 </header>
 
@@ -49,6 +63,21 @@
 
   <!-- TELA 1: CALCULADORA -->
   <section id="view-calculator" class="view">
+    <div class="onboarding-banner hidden" id="onboardingBanner">
+      <button class="onboarding-dismiss" id="btnDismissOnboarding" aria-label="Agora não" type="button">
+        <svg><use href="#icon-close"/></svg>
+      </button>
+      <div class="onboarding-badge"><svg><use href="#icon-tune"/></svg></div>
+      <div class="onboarding-copy">
+        <h2>Configure suas taxas primeiro</h2>
+        <p>Sem isso, o preço sugerido sai igual ao de balcão — sem considerar comissão, taxas e campanhas. Leva menos de 1 minuto e você faz só uma vez.</p>
+      </div>
+      <button class="onboarding-cta" id="btnOnboardingSettings" type="button">
+        <span>Configurar agora</span>
+        <svg><use href="#icon-arrow-right"/></svg>
+      </button>
+    </div>
+
     <div class="field">
       <label for="counterPriceInput">Preço vendido na loja</label>
       <input id="counterPriceInput" type="text" inputmode="decimal" placeholder="R$ 29,90" autocomplete="off" />
