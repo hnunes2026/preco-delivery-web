@@ -522,26 +522,23 @@ function updateConfig(platform, transform) {
   const key = platform === Platform.IFOOD ? 'ifood' : 'ninetyNineFood';
   appSettings[key] = transform(Object.assign({}, appSettings[key]));
   saveSettings(appSettings);
-  updateOnboardingUI();
+  updateFeesBarUI();
 }
 
-/** Apaga as taxas configuradas de iFood e 99Food e o "dispensado" do banner de onboarding,
- * voltando o app ao estado de primeira visita. Usado quando o usuário quer recomeçar do zero. */
+/** Apaga as taxas configuradas de iFood e 99Food, voltando o app ao estado de primeira visita.
+ * Usado quando o usuário quer recomeçar do zero. */
 function resetAllSettings() {
   if (!confirm('Isso vai apagar todas as taxas configuradas de iFood e 99Food. Deseja continuar?')) return;
   appSettings.ifood = defaultConfig();
   appSettings.ninetyNineFood = defaultConfig();
   saveSettings(appSettings);
-  localStorage.removeItem(ONBOARDING_DISMISSED_KEY);
   renderPlatformSettings('settings-ifood', Platform.IFOOD, 'iFood');
   renderPlatformSettings('settings-99food', Platform.NINETY_NINE_FOOD, '99Food');
-  updateOnboardingUI();
+  updateFeesBarUI();
   showToast('Configurações restauradas.');
 }
 
-/* ---------- Onboarding: guia o usuário a configurar as taxas antes de calcular ---------- */
-
-const ONBOARDING_DISMISSED_KEY = 'precoDeliveryOnboardingDismissed.v1';
+/* ---------- Barra permanente de acesso às taxas ---------- */
 
 /** true assim que pelo menos um campo de taxa (de qualquer plataforma) sai do zero. */
 function isPlatformConfigured(config) {
@@ -559,21 +556,16 @@ function isAnyPlatformConfigured() {
   return isPlatformConfigured(appSettings.ifood) || isPlatformConfigured(appSettings.ninetyNineFood);
 }
 
-function isOnboardingDismissed() {
-  return localStorage.getItem(ONBOARDING_DISMISSED_KEY) === 'true';
-}
-
-function dismissOnboarding() {
-  localStorage.setItem(ONBOARDING_DISMISSED_KEY, 'true');
-  updateOnboardingUI();
-}
-
-/** O banner (dispensável) some assim que houver 1+ taxa configurada OU o usuário dispensar.
- * O badge no ícone de Configurações é mais discreto e insiste até haver taxa configurada,
- * mesmo que o banner já tenha sido dispensado. */
-function updateOnboardingUI() {
+/** A barra fica sempre visível (é o atalho permanente para editar taxas), só o texto e o
+ * indicador no ícone de Configurações mudam conforme já existir alguma taxa configurada. */
+function updateFeesBarUI() {
   const configured = isAnyPlatformConfigured();
-  document.getElementById('onboardingBanner').classList.toggle('hidden', configured || isOnboardingDismissed());
+  document.getElementById('feesBarTitle').textContent = configured
+    ? 'Editar taxas de iFood e 99Food'
+    : 'Configure suas taxas';
+  document.getElementById('feesBarSubtitle').textContent = configured
+    ? 'Ajuste comissões, taxas e campanhas quando quiser'
+    : 'iFood e 99Food · leva menos de 1 min';
   document.getElementById('settingsNotifDot').classList.toggle('hidden', configured);
 }
 
@@ -611,8 +603,7 @@ function init() {
   document.getElementById('goalPercentInput').addEventListener('input', recalculateIfPossible);
   document.getElementById('btnSwapPlatform').addEventListener('click', togglePrimaryPlatform);
 
-  document.getElementById('btnOnboardingSettings').addEventListener('click', () => showView('settings'));
-  document.getElementById('btnDismissOnboarding').addEventListener('click', dismissOnboarding);
+  document.getElementById('feesBar').addEventListener('click', () => showView('settings'));
   document.getElementById('btnResetSettings').addEventListener('click', resetAllSettings);
 
   document.querySelectorAll('#goalTypeChips .chip').forEach((chip) => {
@@ -627,7 +618,7 @@ function init() {
     if (event.key === 'Escape') closeDetailModal();
   });
 
-  updateOnboardingUI();
+  updateFeesBarUI();
   showView('calculator');
 }
 

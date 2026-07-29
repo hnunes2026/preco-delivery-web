@@ -155,103 +155,55 @@ svg { width: 22px; height: 22px; }
   50% { transform: scale(1.35); opacity: 0.65; }
 }
 
-/* ---------- Onboarding: leva o usuário a configurar as taxas antes de calcular ---------- */
-.onboarding-banner {
-  position: relative;
-  text-align: center;
-  padding: 24px 22px 22px;
-  margin-bottom: 20px;
-  border-radius: var(--md-radius);
-  background:
-    linear-gradient(var(--md-surface), var(--md-surface)) padding-box,
-    var(--md-gradient) border-box;
-  border: 1.5px solid transparent;
-  box-shadow: var(--md-shadow);
-  animation: banner-in 0.3s ease-out;
-}
-
-.onboarding-banner.hidden { display: none; }
-
-@keyframes banner-in {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.onboarding-dismiss {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  color: var(--md-on-surface-muted);
+/* ---------- Barra permanente e discreta de acesso às taxas ---------- */
+.fees-bar {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: var(--md-radius-sm);
+  border: 1px solid var(--md-outline);
+  background: var(--md-surface);
   cursor: pointer;
+  text-align: left;
+  font: inherit;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
-.onboarding-dismiss svg { width: 15px; height: 15px; }
-.onboarding-dismiss:hover { background: var(--md-surface-variant); color: var(--md-on-surface); }
+.fees-bar:hover { border-color: var(--md-primary); background: var(--md-surface-variant); }
+.fees-bar:active { transform: scale(0.995); }
 
-.onboarding-badge {
-  width: 54px;
-  height: 54px;
-  margin: 0 auto 14px;
+.fees-bar-icon {
+  flex: none;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: var(--md-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--md-on-primary);
-  animation: badge-pulse 2.4s ease-in-out infinite;
+  color: #fff;
 }
 
-.onboarding-badge svg { width: 26px; height: 26px; }
+.fees-bar-icon svg { width: 18px; height: 18px; }
 
-@keyframes badge-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--md-primary) 35%, transparent); }
-  70% { box-shadow: 0 0 0 12px color-mix(in srgb, var(--md-primary) 0%, transparent); }
+.fees-bar-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.onboarding-copy h2 { margin: 0 0 8px; font-size: 1.15rem; font-weight: 800; }
-.onboarding-copy p {
-  margin: 0 0 18px;
+.fees-bar-text strong { font-size: 0.9rem; font-weight: 700; color: var(--md-on-surface); }
+.fees-bar-text span { font-size: 0.78rem; color: var(--md-on-surface-muted); }
+
+.fees-bar-arrow {
+  flex: none;
+  width: 16px;
+  height: 16px;
   color: var(--md-on-surface-muted);
-  font-size: 0.92rem;
-  line-height: 1.55;
-  max-width: 38ch;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.onboarding-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 13px 24px;
-  border: none;
-  border-radius: 999px;
-  background: var(--md-gradient);
-  color: var(--md-on-primary);
-  font-weight: 800;
-  font-size: 0.98rem;
-  cursor: pointer;
-  box-shadow: 0 6px 18px color-mix(in srgb, var(--md-primary) 32%, transparent);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-  animation: cta-pulse 2.4s ease-in-out infinite;
-}
-
-.onboarding-cta:hover { transform: translateY(-1px) scale(1.02); }
-.onboarding-cta:active { transform: translateY(0) scale(0.99); }
-.onboarding-cta svg { width: 18px; height: 18px; transition: transform 0.15s ease; }
-.onboarding-cta:hover svg { transform: translateX(3px); }
-
-@keyframes cta-pulse {
-  0%, 100% { box-shadow: 0 6px 18px color-mix(in srgb, var(--md-primary) 32%, transparent); }
-  50% { box-shadow: 0 6px 26px color-mix(in srgb, var(--md-primary) 52%, transparent); }
 }
 
 main {

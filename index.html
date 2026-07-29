@@ -67,20 +67,14 @@
 
   <!-- TELA 1: CALCULADORA -->
   <section id="view-calculator" class="view">
-    <div class="onboarding-banner hidden" id="onboardingBanner">
-      <button class="onboarding-dismiss" id="btnDismissOnboarding" aria-label="Agora não" type="button">
-        <svg><use href="#icon-close"/></svg>
-      </button>
-      <div class="onboarding-badge"><svg><use href="#icon-tune"/></svg></div>
-      <div class="onboarding-copy">
-        <h2>Configure suas taxas primeiro</h2>
-        <p>Sem isso, o preço sugerido sai igual ao de balcão — sem considerar comissão, taxas e campanhas. Leva menos de 1 minuto e você faz só uma vez.</p>
-      </div>
-      <button class="onboarding-cta" id="btnOnboardingSettings" type="button">
-        <span>Configurar agora</span>
-        <svg><use href="#icon-arrow-right"/></svg>
-      </button>
-    </div>
+    <button class="fees-bar" id="feesBar" type="button">
+      <span class="fees-bar-icon"><svg><use href="#icon-tune"/></svg></span>
+      <span class="fees-bar-text">
+        <strong id="feesBarTitle">Configure suas taxas</strong>
+        <span id="feesBarSubtitle">iFood e 99Food · leva menos de 1 min</span>
+      </span>
+      <svg class="fees-bar-arrow"><use href="#icon-arrow-right"/></svg>
+    </button>
 
     <div class="field">
       <label for="counterPriceInput">Preço vendido na loja</label>
