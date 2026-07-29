@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Preço Delivery</title>
+<title>Preço Delivery-HNM</title>
 <meta name="description" content="Converta o preço de balcão no preço ideal para iFood e 99Food." />
 <style>
 :root {
@@ -384,6 +384,21 @@ input.input-error { border-color: var(--md-error); }
 .about-card p { line-height: 1.6; color: var(--md-on-surface-muted); }
 .version-text { color: var(--md-on-surface-muted); font-size: 0.88rem; }
 
+.creator-text { color: var(--md-on-surface) !important; font-weight: 700; }
+
+.invite-link {
+  display: inline-block;
+  color: var(--md-primary);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1.5px solid currentColor;
+}
+.invite-link:hover { opacity: 0.85; }
+
+.contact-text { font-weight: 600; }
+.contact-text a { color: var(--md-primary); text-decoration: none; }
+.contact-text a:hover { text-decoration: underline; }
+
 .hidden { display: none !important; }
 
 /* ---------- Modal / bottom sheet de detalhes ---------- */
@@ -501,7 +516,7 @@ input.input-error { border-color: var(--md-error); }
 
 <header class="topbar">
   <button class="icon-btn hidden" id="btnBack" aria-label="Voltar" type="button"><svg><use href="#icon-back"/></svg></button>
-  <h1 id="topbarTitle">Preço Delivery</h1>
+  <h1 id="topbarTitle">Preço Delivery-HNM</h1>
   <div class="topbar-actions" id="calculatorActions">
     <button class="icon-btn" id="btnAbout" aria-label="Sobre" type="button"><svg><use href="#icon-info"/></svg></button>
     <button class="icon-btn" id="btnSettings" aria-label="Configurações" type="button"><svg><use href="#icon-settings"/></svg></button>
@@ -549,9 +564,12 @@ input.input-error { border-color: var(--md-error); }
   <!-- TELA 3: SOBRE -->
   <section id="view-about" class="view hidden">
     <div class="about-card">
-      <h2>Preço Delivery</h2>
+      <h2>Preço Delivery-HNM</h2>
       <p>Converta automaticamente o preço de balcão no preço ideal para iFood e 99Food, considerando todas as taxas configuradas.</p>
       <p>Informe o preço, toque em Calcular e receba na hora o valor ideal para cada plataforma, sem cadastros, histórico ou controle financeiro — apenas conversão de preço.</p>
+      <p class="creator-text">Criado por <strong>HNUNES DELIVERY_CONSULT</strong></p>
+      <p><a class="invite-link" href="https://manus.im/invitation/QZATUBGZKV5DOC?utm_source=invitation&amp;utm_medium=social&amp;utm_campaign=copy_link" target="_blank" rel="noopener noreferrer">Conheça essa IA e aprenda muito mais sobre delivery e projetos para seu restaurante</a></p>
+      <p class="contact-text">Contato: <a href="tel:+5521970376887">(21) 97037-6887</a></p>
       <p class="version-text">Versão 1.0.0 (web)</p>
     </div>
   </section>
@@ -989,19 +1007,19 @@ function renderPlatformSettings(containerId, platform, title) {
     <h2>${title}</h2>
     <div class="field">
       <label class="field-label">Comissão (%)</label>
-      <input type="text" inputmode="decimal" data-field="commissionPercent" value="${formatPlainMoney(config.commissionPercent)}" />
+      <input type="text" inputmode="decimal" placeholder="0,00" data-field="commissionPercent" value="${settingsFieldValue(config.commissionPercent)}" />
     </div>
     <div class="field">
       <label class="field-label">Taxa de Pagamento (%)</label>
-      <input type="text" inputmode="decimal" data-field="paymentFeePercent" value="${formatPlainMoney(config.paymentFeePercent)}" />
+      <input type="text" inputmode="decimal" placeholder="0,00" data-field="paymentFeePercent" value="${settingsFieldValue(config.paymentFeePercent)}" />
     </div>
     <div class="field">
       <label class="field-label">Taxa Fixa por Pedido (R$)</label>
-      <input type="text" inputmode="decimal" data-field="fixedFee" value="${formatPlainMoney(config.fixedFee)}" />
+      <input type="text" inputmode="decimal" placeholder="0,00" data-field="fixedFee" value="${settingsFieldValue(config.fixedFee)}" />
     </div>
     <div class="field">
       <label class="field-label">Investimento em Campanhas (R$)</label>
-      <input type="text" inputmode="decimal" data-field="campaignAmount" value="${formatPlainMoney(config.campaignAmount)}" />
+      <input type="text" inputmode="decimal" placeholder="0,00" data-field="campaignAmount" value="${settingsFieldValue(config.campaignAmount)}" />
     </div>
     <div class="field">
       <label class="field-label">Investimento em Anúncios</label>
@@ -1009,7 +1027,7 @@ function renderPlatformSettings(containerId, platform, title) {
         ${feeTypeChipsHtml(config.adsType)}
       </div>
       <input class="typed-fee-value" type="text" inputmode="decimal" data-field="adsValue"
-        data-typed-input="ads" value="${formatPlainMoney(config.adsValue)}" />
+        data-typed-input="ads" value="${settingsFieldValue(config.adsValue)}" />
     </div>
     <div class="field">
       <label class="field-label">Outras Taxas</label>
@@ -1017,7 +1035,7 @@ function renderPlatformSettings(containerId, platform, title) {
         ${feeTypeChipsHtml(config.otherFeesType)}
       </div>
       <input class="typed-fee-value" type="text" inputmode="decimal" data-field="otherFeesValue"
-        data-typed-input="other" value="${formatPlainMoney(config.otherFeesValue)}" />
+        data-typed-input="other" value="${settingsFieldValue(config.otherFeesValue)}" />
     </div>
     <div class="field">
       <label class="field-label">Arredondamento de preço</label>
@@ -1081,7 +1099,13 @@ function roundingChipsHtml(selectedRounding) {
 
 function updateTypedValueLabel(container, key, feeType) {
   const input = container.querySelector(`input[data-typed-input="${key}"]`);
-  input.placeholder = feeType === FeeType.PERCENT ? 'Percentual (%)' : 'Valor Fixo (R$)';
+  input.placeholder = '0,00';
+}
+
+/** Campo nunca configurado (valor 0) fica vazio, com "0,00" só como dica de formato —
+ * evita mostrar números de exemplo já digitados nas Configurações. */
+function settingsFieldValue(value) {
+  return value === 0 ? '' : formatPlainMoney(value);
 }
 
 function updateConfig(platform, transform) {
@@ -1093,7 +1117,7 @@ function updateConfig(platform, transform) {
 /* ---------- Navegação entre as 3 telas ---------- */
 
 const VIEWS = ['calculator', 'settings', 'about'];
-const VIEW_TITLES = { calculator: 'Preço Delivery', settings: 'Configurações', about: 'Sobre' };
+const VIEW_TITLES = { calculator: 'Preço Delivery-HNM', settings: 'Configurações', about: 'Sobre' };
 
 function showView(name) {
   VIEWS.forEach((v) => {

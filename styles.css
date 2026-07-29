@@ -376,6 +376,21 @@ input.input-error { border-color: var(--md-error); }
 .about-card p { line-height: 1.6; color: var(--md-on-surface-muted); }
 .version-text { color: var(--md-on-surface-muted); font-size: 0.88rem; }
 
+.creator-text { color: var(--md-on-surface) !important; font-weight: 700; }
+
+.invite-link {
+  display: inline-block;
+  color: var(--md-primary);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1.5px solid currentColor;
+}
+.invite-link:hover { opacity: 0.85; }
+
+.contact-text { font-weight: 600; }
+.contact-text a { color: var(--md-primary); text-decoration: none; }
+.contact-text a:hover { text-decoration: underline; }
+
 .hidden { display: none !important; }
 
 /* ---------- Modal / bottom sheet de detalhes ---------- */

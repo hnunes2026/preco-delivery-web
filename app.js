@@ -414,19 +414,19 @@ function renderPlatformSettings(containerId, platform, title) {
     <h2>${title}</h2>
     <div class="field">
       <label class="field-label">Comissão (%)</label>
-      <input type="text" inputmode="decimal" data-field="commissionPercent" value="${formatPlainMoney(config.commissionPercent)}" />
+      <input type="text" inputmode="decimal" placeholder="0,00" data-field="commissionPercent" value="${settingsFieldValue(config.commissionPercent)}" />
     </div>
     <div class="field">
       <label class="field-label">Taxa de Pagamento (%)</label>
-      <input type="text" inputmode="decimal" data-field="paymentFeePercent" value="${formatPlainMoney(config.paymentFeePercent)}" />
+      <input type="text" inputmode="decimal" placeholder="0,00" data-field="paymentFeePercent" value="${settingsFieldValue(config.paymentFeePercent)}" />
     </div>
     <div class="field">
       <label class="field-label">Taxa Fixa por Pedido (R$)</label>
-      <input type="text" inputmode="decimal" data-field="fixedFee" value="${formatPlainMoney(config.fixedFee)}" />
+      <input type="text" inputmode="decimal" placeholder="0,00" data-field="fixedFee" value="${settingsFieldValue(config.fixedFee)}" />
     </div>
     <div class="field">
       <label class="field-label">Investimento em Campanhas (R$)</label>
-      <input type="text" inputmode="decimal" data-field="campaignAmount" value="${formatPlainMoney(config.campaignAmount)}" />
+      <input type="text" inputmode="decimal" placeholder="0,00" data-field="campaignAmount" value="${settingsFieldValue(config.campaignAmount)}" />
     </div>
     <div class="field">
       <label class="field-label">Investimento em Anúncios</label>
@@ -434,7 +434,7 @@ function renderPlatformSettings(containerId, platform, title) {
         ${feeTypeChipsHtml(config.adsType)}
       </div>
       <input class="typed-fee-value" type="text" inputmode="decimal" data-field="adsValue"
-        data-typed-input="ads" value="${formatPlainMoney(config.adsValue)}" />
+        data-typed-input="ads" value="${settingsFieldValue(config.adsValue)}" />
     </div>
     <div class="field">
       <label class="field-label">Outras Taxas</label>
@@ -442,7 +442,7 @@ function renderPlatformSettings(containerId, platform, title) {
         ${feeTypeChipsHtml(config.otherFeesType)}
       </div>
       <input class="typed-fee-value" type="text" inputmode="decimal" data-field="otherFeesValue"
-        data-typed-input="other" value="${formatPlainMoney(config.otherFeesValue)}" />
+        data-typed-input="other" value="${settingsFieldValue(config.otherFeesValue)}" />
     </div>
     <div class="field">
       <label class="field-label">Arredondamento de preço</label>
@@ -506,7 +506,13 @@ function roundingChipsHtml(selectedRounding) {
 
 function updateTypedValueLabel(container, key, feeType) {
   const input = container.querySelector(`input[data-typed-input="${key}"]`);
-  input.placeholder = feeType === FeeType.PERCENT ? 'Percentual (%)' : 'Valor Fixo (R$)';
+  input.placeholder = '0,00';
+}
+
+/** Campo nunca configurado (valor 0) fica vazio, com "0,00" só como dica de formato —
+ * evita mostrar números de exemplo já digitados nas Configurações. */
+function settingsFieldValue(value) {
+  return value === 0 ? '' : formatPlainMoney(value);
 }
 
 function updateConfig(platform, transform) {
@@ -518,7 +524,7 @@ function updateConfig(platform, transform) {
 /* ---------- Navegação entre as 3 telas ---------- */
 
 const VIEWS = ['calculator', 'settings', 'about'];
-const VIEW_TITLES = { calculator: 'Preço Delivery', settings: 'Configurações', about: 'Sobre' };
+const VIEW_TITLES = { calculator: 'Preço Delivery-HNM', settings: 'Configurações', about: 'Sobre' };
 
 function showView(name) {
   VIEWS.forEach((v) => {
