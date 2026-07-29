@@ -272,15 +272,18 @@ function recalculateIfPossible() {
 
 function renderResults() {
   const resultsArea = document.getElementById('resultsArea');
+  const promoCard = document.getElementById('promoCard');
   const container = document.getElementById('resultCards');
   container.innerHTML = '';
 
   if (!calcState.ifoodResult || !calcState.ninetyNineFoodResult) {
     resultsArea.classList.add('hidden');
+    promoCard.classList.add('hidden');
     return;
   }
 
   resultsArea.classList.remove('hidden');
+  promoCard.classList.remove('hidden');
 
   const ordered = calcState.primaryPlatform === Platform.IFOOD
     ? [calcState.ifoodResult, calcState.ninetyNineFoodResult]
@@ -522,6 +525,20 @@ function updateConfig(platform, transform) {
   updateOnboardingUI();
 }
 
+/** Apaga as taxas configuradas de iFood e 99Food e o "dispensado" do banner de onboarding,
+ * voltando o app ao estado de primeira visita. Usado quando o usuário quer recomeçar do zero. */
+function resetAllSettings() {
+  if (!confirm('Isso vai apagar todas as taxas configuradas de iFood e 99Food. Deseja continuar?')) return;
+  appSettings.ifood = defaultConfig();
+  appSettings.ninetyNineFood = defaultConfig();
+  saveSettings(appSettings);
+  localStorage.removeItem(ONBOARDING_DISMISSED_KEY);
+  renderPlatformSettings('settings-ifood', Platform.IFOOD, 'iFood');
+  renderPlatformSettings('settings-99food', Platform.NINETY_NINE_FOOD, '99Food');
+  updateOnboardingUI();
+  showToast('Configurações restauradas.');
+}
+
 /* ---------- Onboarding: guia o usuário a configurar as taxas antes de calcular ---------- */
 
 const ONBOARDING_DISMISSED_KEY = 'precoDeliveryOnboardingDismissed.v1';
@@ -596,6 +613,7 @@ function init() {
 
   document.getElementById('btnOnboardingSettings').addEventListener('click', () => showView('settings'));
   document.getElementById('btnDismissOnboarding').addEventListener('click', dismissOnboarding);
+  document.getElementById('btnResetSettings').addEventListener('click', resetAllSettings);
 
   document.querySelectorAll('#goalTypeChips .chip').forEach((chip) => {
     chip.addEventListener('click', () => setGoalType(chip.dataset.goal));

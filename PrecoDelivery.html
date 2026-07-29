@@ -392,103 +392,92 @@ input.input-error { border-color: var(--md-error); }
 
 .result-card:hover { box-shadow: 0 4px 20px rgba(40, 10, 5, 0.1); }
 
-/* ---------- Card promocional (final da tela principal) ---------- */
+/* ---------- Card promocional (discreto, só aparece após calcular) ---------- */
 .promo-card {
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-  margin-top: 24px;
-  padding: 30px 22px 26px;
-  border-radius: var(--md-radius);
-  background: var(--md-gradient);
-  box-shadow: 0 10px 28px color-mix(in srgb, var(--md-primary) 35%, transparent);
+  margin-top: 20px;
+  padding: 14px 16px;
+  border-radius: var(--md-radius-sm);
+  background: var(--md-surface-variant);
+  border: 1px solid var(--md-outline);
+  animation: banner-in 0.3s ease-out;
 }
 
-.promo-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 18% -10%, rgba(255, 255, 255, 0.28), transparent 55%);
-  pointer-events: none;
+.promo-card.hidden { display: none; }
+
+.promo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.promo-icon {
-  position: relative;
-  width: 50px;
-  height: 50px;
-  margin: 0 auto 14px;
+.promo-icon-sm {
+  flex: none;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
+  background: var(--md-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  animation: sparkle-twinkle 3.2s ease-in-out infinite;
 }
 
-.promo-icon svg { width: 26px; height: 26px; }
+.promo-icon-sm svg { width: 17px; height: 17px; }
 
-@keyframes sparkle-twinkle {
-  0%, 100% { transform: rotate(0deg) scale(1); opacity: 1; }
-  50% { transform: rotate(14deg) scale(1.12); opacity: 0.85; }
+.promo-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.promo-card h2 {
-  position: relative;
-  margin: 0 0 8px;
-  font-size: 1.22rem;
-  font-weight: 800;
-  color: #fff;
-}
+.promo-text strong { font-size: 0.86rem; font-weight: 700; color: var(--md-on-surface); }
+.promo-text span { font-size: 0.78rem; color: var(--md-on-surface-muted); }
 
-.promo-card p {
-  position: relative;
-  margin: 0 0 20px;
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 0.94rem;
-  line-height: 1.55;
-  max-width: 36ch;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.promo-cta {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 26px;
+.promo-cta-sm {
+  flex: none;
+  padding: 9px 15px;
   border-radius: 999px;
-  background: #ffffff;
-  color: #17110f;
-  font-weight: 800;
-  font-size: 0.98rem;
+  background: var(--md-gradient);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-  animation: promo-pulse 2.3s ease-in-out infinite;
+  white-space: nowrap;
+  transition: opacity 0.15s ease;
 }
 
-.promo-cta:hover { transform: translateY(-1px) scale(1.03); }
-.promo-cta:active { transform: translateY(0) scale(0.99); }
-.promo-cta svg { width: 18px; height: 18px; transition: transform 0.15s ease; }
-.promo-cta:hover svg { transform: translateX(3px); }
-
-@keyframes promo-pulse {
-  0%, 100% { box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18); }
-  50% { box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28), 0 0 0 5px rgba(255, 255, 255, 0.16); }
-}
+.promo-cta-sm:hover { opacity: 0.88; }
 
 .promo-signature {
-  position: relative;
-  margin: 18px 0 0 !important;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.88);
-  letter-spacing: 0.02em;
+  margin: 10px 0 0 !important;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--md-on-surface-muted);
+  text-align: center;
 }
 
-.promo-signature a { color: #fff; text-decoration: underline; }
+.promo-signature a { color: var(--md-primary); text-decoration: none; }
+.promo-signature a:hover { text-decoration: underline; }
+
+/* ---------- Restaurar configurações padrão ---------- */
+.reset-link {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: var(--md-on-surface-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.reset-link:hover { color: var(--md-error); }
 
 .result-card[data-platform="IFOOD"] { --accent: var(--md-ifood-accent); border-top-color: var(--md-ifood-accent); }
 .result-card[data-platform="NINETY_NINE_FOOD"] { --accent: var(--md-99food-accent); border-top-color: var(--md-99food-accent); }
@@ -802,14 +791,15 @@ input.input-error { border-color: var(--md-error); }
       <div id="resultCards"></div>
     </div>
 
-    <div class="promo-card">
-      <div class="promo-icon"><svg><use href="#icon-sparkle"/></svg></div>
-      <h2>Quer ir muito além do preço ideal?</h2>
-      <p>Conheça a Manus, a IA que ajuda donos de restaurante a criar projetos, automatizar tarefas e tomar decisões mais inteligentes pro seu delivery.</p>
-      <a class="promo-cta" href="https://manus.im/invitation/QZATUBGZKV5DOC?utm_source=invitation&amp;utm_medium=social&amp;utm_campaign=copy_link" target="_blank" rel="noopener noreferrer">
-        <span>Quero conhecer essa IA</span>
-        <svg><use href="#icon-arrow-right"/></svg>
-      </a>
+    <div class="promo-card hidden" id="promoCard">
+      <div class="promo-row">
+        <div class="promo-icon-sm"><svg><use href="#icon-sparkle"/></svg></div>
+        <div class="promo-text">
+          <strong>Quer ir além do preço ideal?</strong>
+          <span>Conheça a IA que ajuda seu delivery a crescer.</span>
+        </div>
+        <a class="promo-cta-sm" href="https://manus.im/invitation/QZATUBGZKV5DOC?utm_source=invitation&amp;utm_medium=social&amp;utm_campaign=copy_link" target="_blank" rel="noopener noreferrer">Saiba mais</a>
+      </div>
       <p class="promo-signature">HNUNES DELIVERY_CONSULT · <a href="tel:+5521970376887">(21) 97037-6887</a></p>
     </div>
   </section>
@@ -818,6 +808,7 @@ input.input-error { border-color: var(--md-error); }
   <section id="view-settings" class="view hidden">
     <div id="settings-ifood" class="settings-card"></div>
     <div id="settings-99food" class="settings-card"></div>
+    <button class="reset-link" id="btnResetSettings" type="button">Restaurar configurações padrão</button>
   </section>
 
   <!-- TELA 3: SOBRE -->
@@ -1124,15 +1115,18 @@ function recalculateIfPossible() {
 
 function renderResults() {
   const resultsArea = document.getElementById('resultsArea');
+  const promoCard = document.getElementById('promoCard');
   const container = document.getElementById('resultCards');
   container.innerHTML = '';
 
   if (!calcState.ifoodResult || !calcState.ninetyNineFoodResult) {
     resultsArea.classList.add('hidden');
+    promoCard.classList.add('hidden');
     return;
   }
 
   resultsArea.classList.remove('hidden');
+  promoCard.classList.remove('hidden');
 
   const ordered = calcState.primaryPlatform === Platform.IFOOD
     ? [calcState.ifoodResult, calcState.ninetyNineFoodResult]
@@ -1374,6 +1368,20 @@ function updateConfig(platform, transform) {
   updateOnboardingUI();
 }
 
+/** Apaga as taxas configuradas de iFood e 99Food e o "dispensado" do banner de onboarding,
+ * voltando o app ao estado de primeira visita. Usado quando o usuário quer recomeçar do zero. */
+function resetAllSettings() {
+  if (!confirm('Isso vai apagar todas as taxas configuradas de iFood e 99Food. Deseja continuar?')) return;
+  appSettings.ifood = defaultConfig();
+  appSettings.ninetyNineFood = defaultConfig();
+  saveSettings(appSettings);
+  localStorage.removeItem(ONBOARDING_DISMISSED_KEY);
+  renderPlatformSettings('settings-ifood', Platform.IFOOD, 'iFood');
+  renderPlatformSettings('settings-99food', Platform.NINETY_NINE_FOOD, '99Food');
+  updateOnboardingUI();
+  showToast('Configurações restauradas.');
+}
+
 /* ---------- Onboarding: guia o usuário a configurar as taxas antes de calcular ---------- */
 
 const ONBOARDING_DISMISSED_KEY = 'precoDeliveryOnboardingDismissed.v1';
@@ -1448,6 +1456,7 @@ function init() {
 
   document.getElementById('btnOnboardingSettings').addEventListener('click', () => showView('settings'));
   document.getElementById('btnDismissOnboarding').addEventListener('click', dismissOnboarding);
+  document.getElementById('btnResetSettings').addEventListener('click', resetAllSettings);
 
   document.querySelectorAll('#goalTypeChips .chip').forEach((chip) => {
     chip.addEventListener('click', () => setGoalType(chip.dataset.goal));
